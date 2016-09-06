@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import jr7square.tictactoe.Tictactoe;
 
@@ -40,11 +41,12 @@ public class EndGameState extends State {
         NoBtn = new Image(new Texture("NoButton.png"));
         background = new Image(new Texture("background.png"));
 
+        //setting location of EndGameState buttons...
         title.setPosition((Tictactoe.WIDTH /2) - (title.getWidth() / 2),(Tictactoe.HEIGHT /2 + 100) - (title.getHeight() / 2));
         YesBtn.setPosition((Tictactoe.WIDTH /2) - (YesBtn.getWidth() / 2 + 100),(Tictactoe.HEIGHT /2) - (YesBtn.getHeight() / 2));
         NoBtn.setPosition((Tictactoe.WIDTH /2 + 100) - (NoBtn.getWidth() / 2),(Tictactoe.HEIGHT /2) - (NoBtn.getHeight() / 2));
 
-        stage = new Stage();
+        stage = new Stage(new StretchViewport(Tictactoe.WIDTH,Tictactoe.HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
         stage.addActor(background);
@@ -61,12 +63,10 @@ public class EndGameState extends State {
     @Override
     protected void handleInput() {
         if(anotherGame){
-            System.out.println("Another Game!");
             gsm.set(new PlayState(gsm));
             dispose();
         }
         else if(noMoreGames){
-            System.out.println("No more Games!");
             System.exit(0);
         }
 
@@ -95,7 +95,7 @@ public class EndGameState extends State {
         YesBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("Yes");
+                //System.out.println("Yes");
                 anotherGame = true;
                 return true;
             }
@@ -104,7 +104,7 @@ public class EndGameState extends State {
         NoBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("No");
+                //System.out.println("No");
                 noMoreGames = true;
                 return true;
             }

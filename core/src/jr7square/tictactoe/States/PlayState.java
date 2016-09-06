@@ -1,9 +1,10 @@
 package jr7square.tictactoe.States;
 
 
-import com.badlogic.gdx.graphics.Texture;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import jr7square.tictactoe.Tictactoe;
 import jr7square.tictactoe.components.Grid;
 
 /**
@@ -14,6 +15,9 @@ public class PlayState extends State {
     private Grid grid;
     public PlayState(GameStateManager gsm){
         super(gsm);
+
+        //setting the camera location and area to focus
+        cam.setToOrtho(false, Tictactoe.WIDTH /2, Tictactoe.HEIGHT /2);
         grid = new Grid();
 
 

@@ -15,6 +15,9 @@ public class MenuState extends State {
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
+        //setting the camera location and area to focus
+        cam.setToOrtho(false, Tictactoe.WIDTH, Tictactoe.HEIGHT);
+
         background = new Texture("background.png");
         playBtn = new Texture("playbutton.png");
     }
@@ -35,14 +38,19 @@ public class MenuState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+        //drawing with respect to the camera location
+        sb.setProjectionMatrix(cam.combined);
 
         sb.begin();
-        sb.draw(background, 0, 0, Tictactoe.WIDTH, Tictactoe.HEIGHT);
-        sb.draw(playBtn, (Tictactoe.WIDTH /2) - (playBtn.getWidth() / 2), (Tictactoe.HEIGHT /2) - (playBtn.getHeight() / 2));
+        sb.draw(background, 0, 0);
+
+        //drawing button at the center of the screen
+        sb.draw(playBtn, cam.position.x - (playBtn.getWidth() / 2), cam.position.y - (playBtn.getHeight() / 2));
         sb.end();
 
     }
 
+    //remember to cleanup
     @Override
     public void dispose() {
         background.dispose();

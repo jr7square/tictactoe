@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import jr7square.tictactoe.States.GameStateManager;
 import jr7square.tictactoe.States.MenuState;
 
+//main
 public class
 		Tictactoe extends ApplicationAdapter {
 	public static final int WIDTH = 480;

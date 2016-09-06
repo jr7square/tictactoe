@@ -3,16 +3,15 @@ package jr7square.tictactoe.components;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+
+import jr7square.tictactoe.Tictactoe;
 
 /**
  * Created by Junior on 5/12/2016.
@@ -32,11 +31,12 @@ public class Grid {
         images = new Image[SIZE_GRID];
         played = new int[SIZE_GRID];
         Iboard = new Image(new Texture("tictactoeboard.png"));
-        stage = new Stage();
+
+        //set stage to cover the entire screen
+        stage = new Stage(new StretchViewport(Tictactoe.WIDTH,Tictactoe.HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
-        //don't forget to add the event listener to each image
-        //and add the table to the stage
+        //setting up the 3x3 board to play TicTacToe
         for(int i = 0; i < SIZE_GRID; i++){
             images[i] = new Image(new Texture("transparent.png"));
             table.add(images[i]).width(120).height(120).pad(15);
@@ -44,9 +44,13 @@ public class Grid {
                 table.row();
             }
         }
-        Iboard.setWidth(480);
-        Iboard.setHeight(480);
-        Iboard.setPosition(0, 164);
+
+
+        Iboard.setWidth(Tictactoe.WIDTH);
+        Iboard.setHeight(Tictactoe.WIDTH);
+
+        //arbitrary position, it looks nice here
+        Iboard.setPosition(0, 166);
         table.setFillParent(true);
         //table.setDebug(true);
         stage.addActor(Iboard);
@@ -59,7 +63,7 @@ public class Grid {
     //This method needs some work, If only the for loop worked mmm...
     private void setListeners(){
         /* i goes out of scope in ClickListener event,
-           figured this out later
+           figure this out later...
         for(i = 0; i < SIZE_GRID -1; i++) {
             images[i].addListener(new ClickListener() {
                 @Override
@@ -73,9 +77,9 @@ public class Grid {
 
 
         //8 adding Listeners to each square in grid, there's got to be another way tho
-        images[0].addListener(new ClickListener(){
+        images[0].addListener(new InputListener(){
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
 
                 if(playerTurn % 2 == 0){
                     images[0].setDrawable(new SpriteDrawable(new Sprite(new Texture("O.png"))));
@@ -87,13 +91,14 @@ public class Grid {
                 }
                 playerTurn++;
 
-                System.out.println("Clicked");
+                //System.out.println("Clicked");
+                return true;
             }
         });
 
-        images[1].addListener(new ClickListener(){
+        images[1].addListener(new InputListener(){
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
                 if(playerTurn % 2 == 0){
                     images[1].setDrawable(new SpriteDrawable(new Sprite(new Texture("O.png"))));
@@ -104,12 +109,13 @@ public class Grid {
                     played[1] = 1;
                 }
                 playerTurn++;
+                return true;
             }
         });
 
-        images[2].addListener(new ClickListener() {
+        images[2].addListener(new InputListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (playerTurn % 2 == 0) {
                     images[2].setDrawable(new SpriteDrawable(new Sprite(new Texture("O.png"))));
                     played[2] = 2;
@@ -118,12 +124,13 @@ public class Grid {
                     played[2] = 1;
                 }
                 playerTurn++;
+                return true;
             }
         });
 
-        images[3].addListener(new ClickListener() {
+        images[3].addListener(new InputListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (playerTurn % 2 == 0) {
                     images[3].setDrawable(new SpriteDrawable(new Sprite(new Texture("O.png"))));
                     played[3] = 2;
@@ -132,12 +139,13 @@ public class Grid {
                     played[3] = 1;
                 }
                 playerTurn++;
+                return true;
             }
         });
 
-        images[4].addListener(new ClickListener() {
+        images[4].addListener(new InputListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (playerTurn % 2 == 0) {
                     images[4].setDrawable(new SpriteDrawable(new Sprite(new Texture("O.png"))));
                     played[4] = 2;
@@ -146,12 +154,13 @@ public class Grid {
                     played[4] = 1;
                 }
                 playerTurn++;
+                return true;
             }
         });
 
-        images[5].addListener(new ClickListener() {
+        images[5].addListener(new InputListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (playerTurn % 2 == 0) {
                     images[5].setDrawable(new SpriteDrawable(new Sprite(new Texture("O.png"))));
                     played[5] = 2;
@@ -160,12 +169,13 @@ public class Grid {
                     played[5] = 1;
                 }
                 playerTurn++;
+                return true;
             }
         });
 
-        images[6].addListener(new ClickListener() {
+        images[6].addListener(new InputListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
                 if (playerTurn % 2 == 0) {
                     images[6].setDrawable(new SpriteDrawable(new Sprite(new Texture("O.png"))));
                     played[6] = 2;
@@ -174,12 +184,13 @@ public class Grid {
                     played[6] = 1;
                 }
                 playerTurn++;
+                return true;
             }
         });
 
-        images[7].addListener(new ClickListener() {
+        images[7].addListener(new InputListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (playerTurn % 2 == 0) {
                     images[7].setDrawable(new SpriteDrawable(new Sprite(new Texture("O.png"))));
                     played[7] = 2;
@@ -188,12 +199,13 @@ public class Grid {
                     played[7] = 1;
                 }
                 playerTurn++;
+                return true;
             }
         });
 
-        images[8].addListener(new ClickListener() {
+        images[8].addListener(new InputListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (playerTurn % 2 == 0) {
                     images[8].setDrawable(new SpriteDrawable(new Sprite(new Texture("O.png"))));
                     played[8] = 2;
@@ -202,6 +214,7 @@ public class Grid {
                     played[8] = 1;
                 }
                 playerTurn++;
+                return true;
             }
         });
 
@@ -249,6 +262,7 @@ public class Grid {
         return false;
     }
 
+    //draw defined as no win for X, or O player.
     public boolean draw(){
         if((playerTurn > SIZE_GRID) && !Owin() && !Xwin()){
             return true;
